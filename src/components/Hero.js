@@ -15,6 +15,35 @@ const Hero = () => {
     return () => clearInterval(interval);
   }, [rotatingWords.length]);
 
+  // Scroll detection to update active tab
+  useEffect(() => {
+    const handleScroll = () => {
+      const aboutSection = document.getElementById('about');
+      const testimonialsSection = document.getElementById('testimonials');
+      
+      if (testimonialsSection) {
+        const testimonialsRect = testimonialsSection.getBoundingClientRect();
+        if (testimonialsRect.top <= window.innerHeight && testimonialsRect.bottom >= 0) {
+          setActiveTab('TESTIMONIALS');
+          return;
+        }
+      }
+      
+      if (aboutSection) {
+        const aboutRect = aboutSection.getBoundingClientRect();
+        if (aboutRect.top <= window.innerHeight && aboutRect.bottom >= 0) {
+          setActiveTab('ABOUT');
+          return;
+        }
+      }
+      
+      setActiveTab('HOME');
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <section className="relative min-h-screen bg-gradient-to-br from-hero-start to-hero-end">
       {/* Header positioned on top of the gradient */}
@@ -26,75 +55,110 @@ const Hero = () => {
             className="h-8 w-auto"
           />
           
-          {/* Navigation Menu */}
-          <nav className="flex space-x-12">
-            {navItems.map((item) => (
-              <a 
-                key={item}
-                href={`#${item.toLowerCase()}`} 
-                className={`text-white font-metropolis text-lg transition-all duration-200 hover:opacity-80 ${
-                  activeTab === item ? 'font-bold' : 'font-thin'
-                }`}
-                onClick={() => setActiveTab(item)}
-              >
-                {item}
-              </a>
-            ))}
-          </nav>
+            {/* Navigation Menu */}
+            <nav className="flex space-x-12">
+              {navItems.map((item) => (
+                <a 
+                  key={item}
+                  href={`#${item.toLowerCase()}`} 
+                  className={`text-white font-metropolis text-lg transition-all duration-200 hover:opacity-80 ${
+                    activeTab === item ? 'font-bold' : 'font-thin'
+                  }`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setActiveTab(item);
+                    const element = document.getElementById(item.toLowerCase());
+                    if (element) {
+                      element.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                      });
+                    }
+                  }}
+                >
+                  {item}
+                </a>
+              ))}
+            </nav>
         </div>
       </header>
       
-      {/* Stars in upper half */}
-      <div className="absolute inset-0 z-5">
-        <img 
-          src="/assets/Star.png" 
-          alt="Star" 
-          className="absolute top-8 left-20 w-4 h-4 opacity-70 animate-bounce"
-          style={{ animationDuration: '3s', animationDelay: '0s' }}
-        />
-        <img 
-          src="/assets/Star.png" 
-          alt="Star" 
-          className="absolute top-12 right-32 w-3 h-3 opacity-60 animate-bounce"
-          style={{ animationDuration: '2.5s', animationDelay: '0.5s' }}
-        />
-        <img 
-          src="/assets/Star.png" 
-          alt="Star" 
-          className="absolute top-16 left-40 w-2 h-2 opacity-80 animate-bounce"
-          style={{ animationDuration: '4s', animationDelay: '1s' }}
-        />
-        <img 
-          src="/assets/Star.png" 
-          alt="Star" 
-          className="absolute top-10 right-60 w-3 h-3 opacity-75 animate-bounce"
-          style={{ animationDuration: '3.5s', animationDelay: '1.5s' }}
-        />
-        <img 
-          src="/assets/Star.png" 
-          alt="Star" 
-          className="absolute top-20 left-60 w-2 h-2 opacity-65 animate-bounce"
-          style={{ animationDuration: '2.8s', animationDelay: '2s' }}
-        />
-        <img 
-          src="/assets/Star.png" 
-          alt="Star" 
-          className="absolute top-14 right-80 w-4 h-4 opacity-70 animate-bounce"
-          style={{ animationDuration: '3.2s', animationDelay: '0.8s' }}
-        />
-        <img 
-          src="/assets/Star.png" 
-          alt="Star" 
-          className="absolute top-18 left-80 w-3 h-3 opacity-60 animate-bounce"
-          style={{ animationDuration: '4.2s', animationDelay: '1.2s' }}
-        />
-        <img 
-          src="/assets/Star.png" 
-          alt="Star" 
-          className="absolute top-22 right-40 w-2 h-2 opacity-85 animate-bounce"
-          style={{ animationDuration: '2.2s', animationDelay: '1.8s' }}
-        />
-      </div>
+        {/* Stars spread across upper half */}
+        <div className="absolute inset-0 z-5">
+          {/* Top row - moved down */}
+          <img 
+            src="/assets/Star.png" 
+            alt="Star" 
+            className="absolute top-12 left-8 w-3 h-3 opacity-70 animate-bounce"
+            style={{ animationDuration: '3s', animationDelay: '0s' }}
+          />
+          <img 
+            src="/assets/Star.png" 
+            alt="Star" 
+            className="absolute top-14 right-16 w-2 h-2 opacity-60 animate-bounce"
+            style={{ animationDuration: '2.5s', animationDelay: '0.5s' }}
+          />
+          <img 
+            src="/assets/Star.png" 
+            alt="Star" 
+            className="absolute top-16 left-1/2 w-4 h-4 opacity-80 animate-bounce"
+            style={{ animationDuration: '4s', animationDelay: '1s' }}
+          />
+          
+          {/* Middle row - moved down */}
+          <img 
+            src="/assets/Star.png" 
+            alt="Star" 
+            className="absolute top-24 left-12 w-2 h-2 opacity-75 animate-bounce"
+            style={{ animationDuration: '3.5s', animationDelay: '1.5s' }}
+          />
+          <img 
+            src="/assets/Star.png" 
+            alt="Star" 
+            className="absolute top-28 right-24 w-3 h-3 opacity-65 animate-bounce"
+            style={{ animationDuration: '2.8s', animationDelay: '2s' }}
+          />
+          <img 
+            src="/assets/Star.png" 
+            alt="Star" 
+            className="absolute top-26 left-3/4 w-2 h-2 opacity-70 animate-bounce"
+            style={{ animationDuration: '3.2s', animationDelay: '0.8s' }}
+          />
+          
+          {/* Lower row - moved down */}
+          <img 
+            src="/assets/Star.png" 
+            alt="Star" 
+            className="absolute top-32 left-20 w-3 h-3 opacity-60 animate-bounce"
+            style={{ animationDuration: '4.2s', animationDelay: '1.2s' }}
+          />
+          <img 
+            src="/assets/Star.png" 
+            alt="Star" 
+            className="absolute top-36 right-8 w-2 h-2 opacity-85 animate-bounce"
+            style={{ animationDuration: '2.2s', animationDelay: '1.8s' }}
+          />
+          <img 
+            src="/assets/Star.png" 
+            alt="Star" 
+            className="absolute top-34 left-1/3 w-4 h-4 opacity-70 animate-bounce"
+            style={{ animationDuration: '3.8s', animationDelay: '0.3s' }}
+          />
+          
+          {/* Additional scattered stars - moved down */}
+          <img 
+            src="/assets/Star.png" 
+            alt="Star" 
+            className="absolute top-20 left-1/6 w-2 h-2 opacity-60 animate-bounce"
+            style={{ animationDuration: '2.7s', animationDelay: '1.7s' }}
+          />
+          <img 
+            src="/assets/Star.png" 
+            alt="Star" 
+            className="absolute top-22 right-1/3 w-3 h-3 opacity-75 animate-bounce"
+            style={{ animationDuration: '3.3s', animationDelay: '0.9s' }}
+          />
+        </div>
       
       {/* Rotating word text */}
       <div className="absolute left-32 top-32 z-40">
@@ -162,9 +226,118 @@ const Hero = () => {
           className="h-auto w-auto"
           style={{ transform: 'scale(0.7)' }}
         />
-      </div>
-      
-      {/* Grass at bottom */}
+        </div>
+        
+        {/* About section - scrollable */}
+        <section id="about" className="absolute bottom-0 left-0 right-0 z-40" style={{ transform: 'translateY(1400px)' }}>
+          <img 
+            src="/assets/grass2.png" 
+            alt="Grass Background" 
+            className="w-full h-auto object-contain"
+          />
+          
+          {/* About content */}
+          <div className="absolute top-32 left-0 right-0 z-60 pl-16 pr-8">
+            <h2 className="text-white font-metropolis font-bold text-4xl text-center mb-8">
+              About
+            </h2>
+            
+            {/* Photos and text side by side */}
+            <div className="flex gap-16 mb-6 mt-8">
+              {/* Photos grid - 2x2 layout */}
+              <div className="flex flex-col gap-4">
+                {/* Top row - 2 photos */}
+                <div className="flex gap-4 justify-start">
+                  <img 
+                    src="/assets/photo1.png" 
+                    alt="Spark Event 1" 
+                    className="max-w-80 max-h-80 w-auto h-auto object-contain rounded-lg shadow-lg"
+                  />
+                  <img 
+                    src="/assets/photo2.png" 
+                    alt="Spark Event 2" 
+                    className="max-w-80 max-h-80 w-auto h-auto object-contain rounded-lg shadow-lg"
+                  />
+                </div>
+                
+                {/* Bottom row - 2 photos */}
+                <div className="flex gap-4 justify-start">
+                  <img 
+                    src="/assets/photo3.png" 
+                    alt="Spark Event 3" 
+                    className="max-w-80 max-h-80 w-auto h-auto object-contain rounded-lg shadow-lg"
+                  />
+                  <img 
+                    src="/assets/photo4.png" 
+                    alt="Spark Event 4" 
+                    className="max-w-80 max-h-80 w-auto h-auto object-contain rounded-lg shadow-lg"
+                  />
+                </div>
+              </div>
+              
+              {/* Text content - extended to left */}
+              <div className="text-white font-metropolis w-[28rem]">
+                <h3 className="font-bold text-4xl mb-5">
+                  What is Spark?
+                </h3>
+                <div className="text-base leading-relaxed mt-1">
+                  <p className="mb-3">
+                    Spark is a 24-hour hackathon–case competition hybrid where innovation meets impact. Participants will tackle a real-world case focused on social good, working in teams to design and build a product that drives meaningful change. Over one weekend, students will think critically, prototype creatively, and pitch their solutions case competition–style to industry judges. Whether you code, design, or strategize, Spark is your chance to ignite ideas that make a difference.
+                  </p>
+                  <p>
+                    At Spark, collaboration is key — students from diverse disciplines come together to bridge strategy, design, and technology. With mentorship from industry professionals and workshops throughout the event, participants gain hands-on experience in product thinking, teamwork, and presentation. By the end of the weekend, teams will walk away not just with a solution, but with the skills, confidence, and mindset to create real-world impact.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        {/* Testimonials section - scrollable */}
+        <section id="testimonials" className="absolute bottom-0 left-0 right-0 z-40" style={{ transform: 'translateY(1800px)' }}>
+          {/* Testimonials content */}
+          <div className="absolute top-32 left-0 right-0 z-60 pl-16 pr-8">
+            <h2 className="text-white font-metropolis font-bold text-4xl text-center mb-8">
+              Testimonials
+            </h2>
+            
+            {/* Testimonials content will go here */}
+            <div className="text-white font-metropolis text-center">
+              <p className="text-lg">Testimonials content coming soon...</p>
+            </div>
+          </div>
+          
+          {/* Pond overlay */}
+          <div className="absolute bottom-0 left-0 right-0 z-50" style={{ transform: 'translateY(850px)' }}>
+            <img 
+              src="/assets/Pond.png" 
+              alt="Pond" 
+              className="w-full h-auto object-contain"
+            />
+          </div>
+          
+        </section>
+        
+        {/* Lilipads on pond - moved outside testimonials section */}
+        <div className="absolute bottom-0 left-0 right-0 z-80" style={{ transform: 'translateY(850px)' }}>
+          <img 
+            src="/assets/Lilipad1.png" 
+            alt="Lilipad" 
+            className="absolute bottom-8 left-32 w-48 h-48"
+          />
+          <img 
+            src="/assets/Lilipad1.png" 
+            alt="Lilipad" 
+            className="absolute bottom-12 right-40 w-40 h-40"
+          />
+          <img 
+            src="/assets/Lilipad1.png" 
+            alt="Lilipad" 
+            className="absolute bottom-6 left-1/2 w-56 h-56"
+          />
+        </div>
+        
+        {/* Grass at bottom */}
       <div className="absolute bottom-0 left-0 right-0 z-50" style={{ transform: 'translateY(150px)' }}>
         <img 
           src="/assets/Grass.png" 
@@ -197,6 +370,15 @@ const Hero = () => {
           src="/assets/Flower1.png" 
           alt="Flower" 
           className="absolute bottom-7 left-72 w-6 h-6 z-60"
+        />
+      </div>
+      
+      {/* Pond2 - moved down */}
+      <div className="absolute bottom-0 left-0 right-0 z-30" style={{ transform: 'translateY(2000px)' }}>
+        <img 
+          src="/assets/Pond2.png" 
+          alt="Pond2" 
+          className="w-full h-auto object-contain"
         />
       </div>
       
