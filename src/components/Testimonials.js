@@ -15,8 +15,8 @@ const Testimonials = () => {
         <div className="absolute top-60 right-60 w-10 h-10 bg-white rounded-full opacity-90"></div>
       </div>
       
-      <div className="container mx-auto px-8 relative z-10">
-        <h2 className="text-white text-4xl font-bold mb-12 text-right">Testimonials</h2>
+      <div className="container mx-auto px-8 relative z-10 pt-8">
+        <h2 className="text-white text-6xl font-bold mb-12 text-right">Testimonials</h2>
         
         <div className="space-y-8">
           {/* First testimonial */}

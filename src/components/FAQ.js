@@ -2,7 +2,7 @@ import React from 'react';
 
 const FAQ = () => {
   const faqItems = [
-    "What is Overhaul?",
+    "What is Spark?",
     "What is a hackathon?",
     "I don't know how to code. Can I still attend?",
     "How much does it cost anything?",

@@ -4,7 +4,7 @@ const Hero = () => {
   const [activeTab, setActiveTab] = useState('HOME');
   const [currentWord, setCurrentWord] = useState(0);
 
-  const navItems = ['HOME', 'ABOUT', 'TESTIMONIALS', 'SPONSORS'];
+  const navItems = ['HOME', 'ABOUT', 'SPONSORS', 'FAQ'];
   const rotatingWords = ['craft', 'learn', 'create'];
 
   useEffect(() => {
@@ -19,12 +19,21 @@ const Hero = () => {
   useEffect(() => {
     const handleScroll = () => {
       const aboutSection = document.getElementById('about');
-      const testimonialsSection = document.getElementById('testimonials');
+      const sponsorsSection = document.getElementById('sponsors');
+      const faqSection = document.getElementById('faq');
       
-      if (testimonialsSection) {
-        const testimonialsRect = testimonialsSection.getBoundingClientRect();
-        if (testimonialsRect.top <= window.innerHeight && testimonialsRect.bottom >= 0) {
-          setActiveTab('TESTIMONIALS');
+      if (faqSection) {
+        const faqRect = faqSection.getBoundingClientRect();
+        if (faqRect.top <= window.innerHeight && faqRect.bottom >= 0) {
+          setActiveTab('FAQ');
+          return;
+        }
+      }
+      
+      if (sponsorsSection) {
+        const sponsorsRect = sponsorsSection.getBoundingClientRect();
+        if (sponsorsRect.top <= window.innerHeight && sponsorsRect.bottom >= 0) {
+          setActiveTab('SPONSORS');
           return;
         }
       }
@@ -45,7 +54,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen bg-gradient-to-br from-hero-start to-hero-end">
+    <section className="relative min-h-screen bg-gradient-to-br from-hero-start to-hero-end overflow-x-hidden">
       {/* Header positioned on top of the gradient */}
       <header className="absolute top-2 left-0 right-0 z-10 px-8 py-4 flex justify-between items-center">
         <div className="flex items-center space-x-8">
@@ -184,9 +193,9 @@ const Hero = () => {
         <div className="relative hover:opacity-90 transition-opacity z-50 mt-2 ml-80">
           <img 
             src="/assets/Join Waitlist Button.png" 
-            alt="Join Waitlist" 
+            alt="Join Waitlist"
             className="h-16 w-auto"
-            style={{ transform: 'scale(0.85)' }}
+            style={{ transform: 'scale(0.6)' }}
           />
         </div>
         
@@ -293,31 +302,6 @@ const Hero = () => {
           </div>
         </section>
         
-        {/* Testimonials section - scrollable */}
-        <section id="testimonials" className="absolute bottom-0 left-0 right-0 z-40" style={{ transform: 'translateY(1800px)' }}>
-          {/* Testimonials content */}
-          <div className="absolute top-32 left-0 right-0 z-60 pl-16 pr-8">
-            <h2 className="text-white font-metropolis font-bold text-4xl text-center mb-8">
-              Testimonials
-            </h2>
-            
-            {/* Testimonials content will go here */}
-            <div className="text-white font-metropolis text-center">
-              <p className="text-lg">Testimonials content coming soon...</p>
-            </div>
-          </div>
-          
-          {/* Pond overlay */}
-          <div className="absolute bottom-0 left-0 right-0 z-50" style={{ transform: 'translateY(850px)' }}>
-            <img 
-              src="/assets/Pond.png" 
-              alt="Pond" 
-              className="w-full h-auto object-contain"
-            />
-          </div>
-          
-        </section>
-        
         {/* Lilipads on pond - moved outside testimonials section */}
         <div className="absolute bottom-0 left-0 right-0 z-80" style={{ transform: 'translateY(850px)' }}>
           <img 
@@ -373,13 +357,74 @@ const Hero = () => {
         />
       </div>
       
-      {/* Pond2 - moved down */}
-      <div className="absolute bottom-0 left-0 right-0 z-30" style={{ transform: 'translateY(2000px)' }}>
+       {/* Sponsor Background - bottom layer */}
+       <div id="sponsors" className="absolute bottom-0 left-0 right-0 z-10" style={{ transform: 'translateY(2500px)' }}>
         <img 
-          src="/assets/Pond2.png" 
-          alt="Pond2" 
-          className="w-full h-auto object-contain"
+          src="/assets/SponsorBackground.png" 
+          alt="Sponsor Background"
+          className="w-full h-auto object-contain max-w-full"
         />
+        
+        {/* Sponsor Content */}
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10 text-center px-8 max-w-4xl">
+          <h2 className="text-white font-metropolis font-bold text-6xl mb-8">Want to Sponsor?</h2>
+          <div className="text-white font-metropolis text-lg leading-tight">
+            <p className="mb-4">
+              Our sponsors make it possible for us to give our prospective developers, designers, and builders the opportunity to build for social good. Hackers make meaningful connections with our sponsors beyond just the hackathon weekend. Stay tuned as we confirm more sponsors for Spark!
+            </p>
+            <p className="mt-6">
+              Want to help make this event a reality? Email us at <a href="mailto:ryhana.williams0@gmail.com" className="underline hover:opacity-80">ryhana.williams0@gmail.com</a> or <a href="mailto:wychen946@gmail.com" className="underline hover:opacity-80">wychen946@gmail.com</a>
+            </p>
+          </div>
+          
+          {/* Sponsor Button */}
+          <div className="mt-8 flex justify-center">
+            <a 
+              href="mailto:ryhana.williams0@gmail.com?subject=Sponsorship Inquiry" 
+              className="inline-block transition-all duration-300 hover:scale-105 hover:opacity-90"
+            >
+              <img 
+                src="/assets/Sponsor Button.png" 
+                alt="Become a Sponsor"
+                className="h-auto w-auto"
+              />
+            </a>
+          </div>
+        </div>
+      </div>
+      
+       {/* FAQ Background - below sponsor background */}
+       <div id="faq" className="absolute bottom-0 left-0 right-0 z-0" style={{ transform: 'translateY(3820px)' }}>
+        <img 
+          src="/assets/FAQBackground.png" 
+          alt="FAQ Background"
+          className="w-full h-auto object-contain max-w-full"
+        />
+        
+         {/* FAQ Content */}
+         <div className="absolute top-64 left-1/2 transform -translate-x-1/2 z-10 text-center px-8 max-w-4xl w-full">
+           <h2 className="text-white font-metropolis font-bold text-6xl mb-12">FAQ</h2>
+          
+          <div className="max-w-3xl mx-auto">
+            <div className="space-y-0">
+              {[
+                "What is a hackathon?",
+                "What is a case competition?",
+                "I don't know how to code. Can I still come?",
+                "Does Spark cost anything?",
+                "Do I need to come with a team?",
+                "Will there be travel reimbursements offered?",
+                "I'm a recently graduated student. Can I still apply?",
+                "I don't attend a Canadian university. Can I still apply?"
+              ].map((question, index) => (
+                <div key={index} className="flex items-center justify-between py-4 border-b border-gray-300 border-opacity-30 hover:opacity-80 transition-opacity cursor-pointer">
+                  <span className="text-white font-metropolis text-lg">{question}</span>
+                  <span className="text-gray-300 text-2xl font-light">+</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
       
       {/* Blue gradient background */}
