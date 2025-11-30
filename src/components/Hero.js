@@ -182,19 +182,19 @@ const Hero = () => {
             {rotatingWords[currentWord]}
           </span> <span className="opacity-50">at</span>
         </p>
-        <h1 className="text-white font-metropolis font-bold text-7xl mt-2">
+        <h1 className="text-white font-metropolis font-bold text-8xl mt-2">
           Spark
         </h1>
-        <p className="text-white font-metropolis font-bold text-2xl mt-4">
-          January 31-February 1, 2025 · In-person event
+        <p className="text-white font-metropolis font-bold text-3xl mt-4">
+          January 30-February 1, 2025 · In-person event
         </p>
         
         {/* Join Waitlist Button */}
-        <div className="relative hover:opacity-90 transition-opacity z-50 mt-2 ml-80">
+        <div className="relative hover:opacity-80 transition-opacity z-50 mt-2 ml-80">
           <img 
             src="/assets/Join Waitlist Button.png" 
             alt="Join Waitlist"
-            className="h-16 w-auto"
+            className="h-28 w-auto"
             style={{ transform: 'scale(0.6)' }}
           />
         </div>
