@@ -1,15 +1,3 @@
-# Overhaul Hackathon Website
-
-A React-based website for the Overhaul hackathon event, built with Tailwind CSS.
-
-## Features
-
-- Responsive design matching the provided mockup
-- Modern React components
-- Tailwind CSS for styling
-- Interactive sponsor button (opens Outlook email)
-- Static waitlist button (placeholder functionality)
-
 ## Getting Started
 
 ### Prerequisites
