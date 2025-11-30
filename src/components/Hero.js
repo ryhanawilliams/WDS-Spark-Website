@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Hero = () => {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('HOME');
   const [currentWord, setCurrentWord] = useState(0);
 
@@ -190,7 +192,10 @@ const Hero = () => {
         </p>
         
         {/* Join Waitlist Button */}
-        <div className="relative hover:opacity-80 transition-opacity z-50 mt-2 ml-80">
+        <div 
+          className="relative hover:opacity-80 transition-opacity z-50 mt-2 ml-80 cursor-pointer"
+          onClick={() => navigate('/waitlist-signup')}
+        >
           <img 
             src="/assets/Join Waitlist Button.png" 
             alt="Join Waitlist"
