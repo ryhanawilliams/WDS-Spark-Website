@@ -432,6 +432,15 @@ const Hero = () => {
         </div>
       </div>
       
+      {/* Footer - Western Developers Society 2025 */}
+      <div className="absolute bottom-0 left-0 right-0 z-50" style={{ transform: 'translateY(4500px)' }}>
+        <div className="bg-dark-green py-4 text-center">
+          <p className="text-white font-metropolis text-sm">
+            © Western Developers Society 2025
+          </p>
+        </div>
+      </div>
+      
       {/* Blue gradient background */}
     </section>
   );
